@@ -17,4 +17,4 @@ env/
 Thumbs.db
 
 # VS Code
-.vscode/
+.vscode/week1/data/*_summary.csv
