@@ -1,0 +1,8 @@
+order_id,product,quantity,unit_price,country
+1,Widget A,3,9.99,France
+2,Widget B,1,24.99,Germany
+3,Widget A,5,9.99,France
+4,Widget C,2,4.99,Spain
+5,Widget B,3,24.99,France
+6,Widget C,8,4.99,Germany
+7,Widget A,2,9.99,Spain
