@@ -1,6 +1,10 @@
+import os
 import pandas as pd
 import logging
 from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv()
 
 logging.basicConfig(
     level=logging.INFO,
@@ -16,7 +20,7 @@ def load_data(path: Path) -> pd.DataFrame:
     df = pd.read_csv(path)
     logging.info(f"Loaded {len(df)} rows")
     return df
-    
+
 def transform(df: pd.DataFrame) -> pd.DataFrame:
     """Add a revenue column and aggregate by country."""
     df["revenue"] = df["quantity"] * df["unit_price"]
@@ -34,9 +38,10 @@ def write_output(df: pd.DataFrame, path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     df.to_csv(path, index=False)
     logging.info(f"Output written to {path}")
+
 if __name__ == "__main__":
-    input_path = Path("week1/data/sales.csv")
-    output_path = Path("week1/data/sales_summary.csv")
+    input_path = Path(os.getenv("INPUT_PATH", "week1/data/sales.csv"))
+    output_path = Path(os.getenv("OUTPUT_PATH", "week1/data/sales_summary.csv"))
 
     try:
         df = load_data(input_path)
