@@ -19,3 +19,4 @@ Thumbs.db
 # VS Code
 .vscode/week1/data/*_summary.csv
 *_summary.csv
+pipeline/ingestion/data/
