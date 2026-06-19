@@ -64,13 +64,17 @@ def verify_load(engine, table_name: str) -> None:
         logging.info(f"Verification: {count} rows found in '{table_name}'")
 
 
+def run_load(csv_path: Path = RAW_DATA_PATH, table_name: str = TABLE_NAME) -> None:
+    """Run the full load job: read CSV, clean columns, write to Postgres, verify."""
+    engine = get_db_engine()
+    df = load_csv(csv_path)
+    df = clean_columns(df)
+    write_to_postgres(df, engine, table_name)
+    verify_load(engine, table_name)
+
 if __name__ == "__main__":
     try:
-        engine = get_db_engine()
-        df = load_csv(RAW_DATA_PATH)
-        df = clean_columns(df)
-        write_to_postgres(df, engine, TABLE_NAME)
-        verify_load(engine, TABLE_NAME)
+        run_load()
         logging.info("Load completed successfully")
     except Exception as e:
         logging.error(f"Load failed: {e}")

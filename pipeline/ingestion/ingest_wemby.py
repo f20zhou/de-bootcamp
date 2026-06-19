@@ -51,11 +51,16 @@ def save_raw(df: pd.DataFrame, path: Path) -> None:
     logging.info(f"Raw data saved to {path}")
 
 
+
+def run_ingestion(player_name: str = PLAYER_NAME, season: str = SEASON) -> None:
+    """Run the full ingestion job: lookup player, fetch game log, save raw CSV."""
+    player_id = get_player_id(player_name)
+    df = fetch_gamelog(player_id, season)
+    save_raw(df, OUTPUT_PATH)
+
 if __name__ == "__main__":
     try:
-        player_id = get_player_id(PLAYER_NAME)
-        df = fetch_gamelog(player_id, SEASON)
-        save_raw(df, OUTPUT_PATH)
+        run_ingestion()
         logging.info("Ingestion completed successfully")
     except Exception as e:
         logging.error(f"Ingestion failed: {e}")
