@@ -31,13 +31,16 @@ def get_player_id(name: str) -> int:
 def fetch_gamelog(player_id: int, season: str) -> pd.DataFrame:
     """Fetch full season game log for a player from NBA.com."""
     logging.info(f"Fetching game log for player {player_id}, season {season}")
-    time.sleep(1)  # NBA.com limits aggressive requests
+    time.sleep(1)
     gamelog = playergamelog.PlayerGameLog(
         player_id=str(player_id),
         season=season
     )
     df = gamelog.get_data_frames()[0]
-    logging.info(f"Fetched {len(df)} games")
+    if df.empty:
+        logging.warning(f"No games found for player {player_id}, season {season}")
+    else:
+        logging.info(f"Fetched {len(df)} games")
     return df
 
 

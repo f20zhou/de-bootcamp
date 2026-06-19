@@ -16,8 +16,8 @@ RAW_DATA_PATH = Path("pipeline/ingestion/data/wemby_gamelog_raw.csv")
 TABLE_NAME = "wemby_gamelog_raw"
 
 
-def get_db_engine():
-    """Create and return a SQLAlchemy engine using credentials from .env."""
+def get_db_engine() -> Engine:
+    """Create and return a SQLAlchemy engine using credentials from .env.""" 
     host = os.getenv("POSTGRES_HOST", "localhost")
     port = os.getenv("POSTGRES_PORT", "5432")
     db = os.getenv("POSTGRES_DB", "de_bootcamp")
